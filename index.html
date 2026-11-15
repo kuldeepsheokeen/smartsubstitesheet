@@ -291,10 +291,18 @@
         </div>
     </div>
 
-<script src="data.js"></script>
-       
+    <script src="data.js"></script>
+    <script>
+        function normalizeTeacherKey(value) {
+            return (value || '').toString().trim().replace(/\./g, '').replace(/\s+/g, ' ').toLowerCase();
+        }
 
-function parseCSV(text) {
+        const normalizedTeacherGroups = {};
+        Object.keys(teacherGroups).forEach(key => {
+            normalizedTeacherGroups[normalizeTeacherKey(key)] = teacherGroups[key];
+        });
+
+        function parseCSV(text) {
             const rows = [];
             let row = [];
             let field = '';
